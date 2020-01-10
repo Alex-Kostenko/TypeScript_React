@@ -10,7 +10,6 @@ var data = [
 
 localStorage.setItem('toDoList', JSON.stringify(data));
 
-
 const App: React.FC = () => {
 
   useEffect(() => {
@@ -28,7 +27,7 @@ const App: React.FC = () => {
     let currentItem = item;
     currentItem.done = e.target.checked;
     data[item._id] = currentItem;
-    setToDoList(data)
+    setToDoList(data);
   }
 
   return (
