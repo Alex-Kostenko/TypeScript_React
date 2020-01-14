@@ -4,11 +4,14 @@ const createNewItem = (nextId: number, value: string, array: Task[], reset: Func
   let newItem: Task = {
     _id: nextId,
     done: false,
-    text: value
-  }
+    text: value,
+    delete: false
+  };
   console.log(newItem);
-  updataState(array.concat(newItem))
-  reset('')
+  const newArray = array.concat(newItem)
+  updataState(newArray);
+  reset('');
+  localStorage.setItem('toDoList', JSON.stringify(newArray));
 }
 
 export default createNewItem;

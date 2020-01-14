@@ -1,17 +1,18 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent} from 'react';
 import { Task } from '../modal/task';
-import { Input, Button, Icon } from 'semantic-ui-react'
+import { Input, Button, Icon, Checkbox } from 'semantic-ui-react'
 import createNewItem from '../utils/create';
-import updataItem from '../utils/updata';
+import updateItem from '../utils/updata';
+import deleteItem from '../utils/delete';
 
 
-var data = [
-  { _id: 0, done: false, text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, ratione. ' },
-  { _id: 1, done: false, text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, ratione. ' },
-  { _id: 2, done: false, text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, ratione. ' }
-];
+// var data = [
+//   { _id: 0, done: false, text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, ratione. ' },
+//   { _id: 1, done: false, text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, ratione. ' },
+//   { _id: 2, done: false, text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, ratione. ' }
+// ];
 
-localStorage.setItem('toDoList', JSON.stringify(data));
+// localStorage.setItem('toDoList', JSON.stringify(data));
 
 const App: React.FC = () => {
 
@@ -40,9 +41,13 @@ const App: React.FC = () => {
         </Button.Content>
       </Button>
       {toDoList.map((item: Task) =>
-        <div key={item._id}>
-          <input type="checkbox" checked={item.done} onChange={(e: ChangeEvent<HTMLInputElement>) => updataItem(e, toDoList, item, setToDoList) } />
-          {item.text}
+        !item.delete && <div key={item._id}>
+          <Checkbox
+            checked={item.done} 
+            onChange={() => updateItem(toDoList, item, setToDoList)}
+            label={item.text}
+          />
+          <Icon name='window close outline' onClick={() => deleteItem(toDoList, item, setToDoList)} />
         </div>
       )}
     </div>
